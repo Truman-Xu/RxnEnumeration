@@ -288,9 +288,11 @@ class Carboxyl:
                 # fully reduce all oxygens
                 smalist = [sma.replace('[C:21](-[O:24])=[O:25]','[C:21]') for sma in smalist]
                 
-        elif self.modifArg == None and 21 in self.reactAtom:
-            # remove the alcohol if reaction atom is B[C] (to make space for bonding)
-            smalist = [sma.replace('([C:21](-[O:24])=[O:25])','[C:21]=[O:25]') for sma in smalist]
+        elif self.modifArg == None:
+            if 21 in self.reactAtom:
+                # remove the alcohol if reaction atom is B[C] (to make space for bonding)
+                smalist = [sma.replace('[C:21](-[O:24])=[O:25]','[C:21]=[O:25]') for sma in smalist]
+                
             
         aro_smas = [sma.replace('[c:23][c:22]-[C:21]','[c:23][c:22][c:21]') for sma in smalist]
         aro_smas.extend([sma.replace('[c:21]-[O:25]','[c:21][o:25]').replace('[c:21]-[O:24]','[c:21][o:24]')
